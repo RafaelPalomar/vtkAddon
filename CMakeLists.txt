@@ -263,16 +263,31 @@ configure_file(
   ${CMAKE_CURRENT_BINARY_DIR}/install/vtkAddonConfig.cmake
   )
 
-
 # --------------------------------------------------------------------------
 # Install configuration files
 # --------------------------------------------------------------------------
+
+# Set vtkAddon_INSTALL_CMAKE_DIR
 if(NOT DEFINED ${PROJECT_NAME}_INSTALL_CMAKE_DIR)
   set(${PROJECT_NAME}_INSTALL_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/CMake)
 endif()
 
+# Install vtkAddonConfig.cmake
 install(
   FILES ${CMAKE_CURRENT_BINARY_DIR}/install/vtkAddonConfig.cmake
   DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKE_DIR}
   )
 
+# Install vtkAddon CMake files
+file(GLOB vtkAddonCMakeFiles "${CMAKE_SOURCE_DIR}/CMake/*.cmake")
+install(
+  FILES ${vtkAddonCMakeFiles}
+  DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKE_DIR}
+  )
+
+# Install vtkAddon CMake template files
+file(GLOB vtkAddonCMakeTemplateFiles "${CMAKE_SOURCE_DIR}/CMake/*.in")
+install(
+  FILES ${vtkAddonCMakeTemplateFiles}
+  DESTINATION ${${PROJECT_NAME}_INSTALL_CMAKE_DIR}
+  )
